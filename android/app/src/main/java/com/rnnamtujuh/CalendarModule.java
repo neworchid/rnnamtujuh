@@ -1,6 +1,8 @@
 package com.rnnamtujuh;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 
@@ -28,10 +30,27 @@ public class CalendarModule extends ReactContextBaseJavaModule {
   public void createCalendarEvent(String name, String location) {
     Log.d("CalendarModule", "Create event called with name: " + name + " and location: " + location);
     Context context = this.getReactApplicationContext();
-    Intent intent = new Intent(context, EmptyAct.class);
+/*
+    Intent intent = new Intent(context, MainActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(intent);
+*/
 
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+    alertDialogBuilder.setPositiveButton("OKEB",
+        new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+          }
+        });
+    alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.dismiss();
+      }
+    });
+    alertDialogBuilder.show();
     /*long start = System.currentTimeMillis();
     long end = start + 3000;
     while (true) {

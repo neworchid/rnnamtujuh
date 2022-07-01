@@ -12,10 +12,10 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:theme="@style/AppTheme">
     <activity
-      android:name=".EmptyAct"
+      android:name=".MainActivity"
       android:exported="false" />
     <activity
-      android:name=".MainActivity"
+      android:name=".EmptyAct"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
       android:label="@string/app_name"
       android:launchMode="singleTask"
@@ -26,6 +26,8 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
   </application>
 
 </manifest>

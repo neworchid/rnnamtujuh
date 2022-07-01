@@ -9,26 +9,25 @@
 import React, {
   Node,
   useEffect,
+  useState,
 } from 'react';
 
 import {
   NativeEventEmitter,
   NativeModules,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
+import {WebView} from 'react-native-webview';
 import {
   Colors,
   DebugInstructions,
-  Header,
   LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 const { CalendarModule } = NativeModules;
@@ -50,7 +49,7 @@ const Section = ({ children, title }): Node => {
         style={[
           styles.sectionDescription,
           {
-            color: isDarkMode ? Colors.light : Colors.dark,
+            color: isDarkMode ? Colors.lt : Colors.dark,
           },
         ]}>
         {children}
@@ -60,9 +59,13 @@ const Section = ({ children, title }): Node => {
 };
 
 const App: () => Node = () => {
+  const [visible, setVisible] = useState(true);
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
+    flex: 1,
+    height: 2000,
+    width: 300,
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
@@ -77,26 +80,42 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
+      <View
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
+        <WebView
+          source={{ uri: 'https://infinite.red' }}
+          style={{
+            marginTop: 20, backgroundColor: 'green',
+            flex: 1,
+          }}
+        />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <TouchableHighlight onPress={() => {
+          <TouchableOpacity onPress={() => {
             console.log('asdfasdf');
-            CalendarModule.createCalendarEvent('testName', 'testLocation');
+            setVisible(!visible)
+            // CalendarModule.createCalendarEvent('testName', 'testLocation');
           }}>
             <Section title="Step One">
               Edit <Text style={styles.highlight}>App.js</Text> to change this
-              screen and then come back to see your edits.
+              screen and then asdfasdfasdfasdfssssssssssssssssssssssscome bacasdfasdfasdk to see your edits.
             </Section>
-          </TouchableHighlight>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
+          </TouchableOpacity>
+          {visible ?
+            <Section title="Step x">
+              <WebView
+                source={{ uri: 'https://infinite.red' }}
+                style={{
+                  marginTop: 20, backgroundColor: 'green',
+                  flex: 1,
+                }}
+              />
+            </Section>
+            : null
+          }
           <Section title="Debug">
             <DebugInstructions />
           </Section>
@@ -105,7 +124,7 @@ const App: () => Node = () => {
           </Section>
           <LearnMoreLinks />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
